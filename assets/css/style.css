@@ -1,0 +1,394 @@
+@import url('https://fonts.googleapis.com/css2?family=Ribeye+Marrow&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Ribeye Marrow", serif;
+  font-weight: 400;
+  font-style: normal;
+  background-color: #0e0e0e;
+  color: white;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.tab {
+  display: none;
+}
+
+.tab.active {
+  display: block;
+}
+
+/* ===============================
+   PROJETOS — SÓ QUANDO TAB ATIVA
+================================ */
+
+.tab.active#projetos {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* container com scroll */
+.tab.active#projetos .projetos-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 10px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* card do projeto */
+.tab.active#projetos .projeto-card {
+  background: #1e1e1e;
+  border-radius: 12px;
+  padding: 12px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* imagem de preview */
+.tab.active#projetos .projeto-preview {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* descrição */
+.tab.active#projetos .projeto-desc {
+  font-size: 0.9rem;
+  color: #ccc;
+  flex-grow: 1;
+  text-align: justify;
+}
+
+/* área dos botões */
+.tab.active#projetos .projeto-botoes {
+  display: flex;
+  gap: 10px;
+}
+
+/* botões circulares */
+.tab.active#projetos .projeto-botoes img {
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.tab.active#projetos .projeto-botoes img:hover {
+  transform: scale(1.1);
+  opacity: 0.85;
+}
+
+
+/* container das estrelas */
+.dot-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* cada estrela individual */
+.dot {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  width: 2px;
+  height: 2px;
+  opacity: 0.5;
+  filter: drop-shadow(0 0 2px white);
+  animation: twinkle linear infinite;
+}
+
+/* animação de cintilação */
+@keyframes twinkle {
+  0% { opacity: 0.2; transform: scale(0.5);}
+  50% { opacity: 1; transform: scale(1.2);}
+  100% { opacity: 0.2; transform: scale(0.7);}
+}
+
+
+.sidebar {
+  width: 450px;
+  background-color: #00000063;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 40px 20px;
+  text-align: center;
+  z-index: 2;
+  position: relative;
+}
+
+.sidebar-menu {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sidebar-menu ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.sidebar a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: bold;
+  padding: 10px;
+  border: 3px solid transparent;
+  transition: 0.3s;
+}
+
+.sidebar a {
+  border: 3px solid transparent;
+  transition: border 0.2s;
+}
+
+.sidebar a:hover {
+  border: 3px solid white;
+}
+
+.sidebar a.active {
+  border: 3px solid white;
+}
+
+
+.sidebar-footer {
+  padding-top: 40px;
+  font-size: 1.2rem;
+  opacity: 0.7;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  position: relative;
+  padding: 40px;
+}
+
+.bolinhas-topo {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 15px;
+  padding: 15px;
+  animation: slideDown 0.6s ease-out forwards;
+  opacity: 0; 
+}
+
+.bolinhas-topo img {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 2px rgba(0,0,0,0.4));
+  transition: transform 0.3s ease;
+}
+
+.bolinhas-topo img:hover {
+  transform: scale(1.2);
+}
+
+
+@keyframes slideDown {
+  0% {
+    transform: translate(-50%, -30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(-50%);
+    opacity: 1;
+  }
+}
+
+.bolinhas-topo span {
+  width: 45px;
+  height: 45px;
+  background-color: rgb(250, 60, 60);
+  border-radius: 50%;
+}
+
+.perfil {
+  text-align: center;
+  position: relative;
+}
+
+.perfil #profile{
+  width: 325px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 15px solid #cfcfcf07;
+  margin-bottom: 20px;
+}
+
+#br-flag {
+  width: 32px;
+  height: auto;
+}
+
+.sidebar-lang {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 12px 10px;
+}
+
+.lang-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: 1px solid transparent;
+  padding: 6px 10px;
+  border-width: 2px;
+  cursor: pointer;
+  transition: border 0.2s, transform 0.2s;
+}
+
+.lang-btn img {
+  width: 28px;
+  height: auto;
+  display: block;
+}
+
+.lang-text {
+  font-size: 13px;
+  color: #ddd;
+  white-space: nowrap;
+  font-family: "Ribeye Marrow", serif;
+}
+
+.lang-btn:hover {
+  border-color: #555;
+  transform: scale(1.05);
+}
+
+.lang-btn.active {
+  border-color: #aaa;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.lang-btn.active .lang-text {
+  color: #fff;
+  font-weight: 600;
+}
+
+.perfil h2 {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.perfil h3 {
+  font-size: 1.7rem;
+  opacity: 0.9;
+  margin-top: 10px;
+}
+
+.cursor {
+  display: inline-block;
+  animation: blink 1s steps(1) infinite;
+  font-weight: bold;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.contacts {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
+
+.contacts img {
+  width: 50px;
+  height: 50px;
+  transition: transform 0.3s ease;
+}
+
+.contacts img:hover {
+  transform: scale(1.2);
+}
+
+.rainbow-text {
+  background: linear-gradient(90deg, #444444, #939393, #d2d2d2);
+  background-size: 400%;
+
+  /* fallback */
+  background-clip: text;
+  color: transparent;
+
+  /* webkit */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation: rainbowAnimation 6s linear infinite;
+}
+
+@keyframes rainbowAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.sidebar {
+  background: rgba(0, 0, 0, 0.493);
+  border-right: 1px solid rgba(255, 255, 255, 0.308);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  background-size: 200% 200%;
+  animation: sidebarGradient 12s ease infinite;
+}
+
+@keyframes sidebarGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
