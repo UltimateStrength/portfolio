@@ -16,54 +16,71 @@ body {
   height: 100vh;
   overflow: hidden;
   position: relative;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
 }
+
+/* ===============================
+   TABS — lógica central
+================================ */
 
 .tab {
   display: none;
 }
 
+/* todas as tabs ativas: flex column, ocupam tudo */
 .tab.active {
-  display: block;
-}
-
-/* ===============================
-   PROJETOS — SÓ QUANDO TAB ATIVA
-================================ */
-
-.tab.active#projetos {
-  height: 100%;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+/* INÍCIO: centraliza perfil, permite absolute dos filhos */
+.tab.active#inicio {
+  align-items: center;
+  justify-content: center;
+  position: relative;
   overflow: hidden;
 }
 
-/* container com scroll */
+/* PROJETOS: scroll interno na grid */
+.tab.active#projetos {
+  align-items: stretch;
+  justify-content: flex-start;
+  overflow: hidden;
+}
+
+/* PLACEHOLDERS (contatos/feedback): centraliza texto */
+.tab.active#contatos,
+.tab.active#feedback {
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===============================
+   PROJETOS — cards
+================================ */
+
 .tab.active#projetos .projetos-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 20px;
   max-width: 900px;
+  width: 100%;
   margin: 0 auto;
-  padding: 10px;
+  padding: 20px;
   flex: 1;
   overflow-y: auto;
 }
 
-/* card do projeto */
 .tab.active#projetos .projeto-card {
   background: #1e1e1e;
   border-radius: 12px;
   padding: 12px;
-
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-/* imagem de preview */
 .tab.active#projetos .projeto-preview {
   width: 100%;
   height: 140px;
@@ -71,7 +88,6 @@ body {
   border-radius: 8px;
 }
 
-/* descrição */
 .tab.active#projetos .projeto-desc {
   font-size: 0.9rem;
   color: #ccc;
@@ -79,13 +95,11 @@ body {
   text-align: justify;
 }
 
-/* área dos botões */
 .tab.active#projetos .projeto-botoes {
   display: flex;
   gap: 10px;
 }
 
-/* botões circulares */
 .tab.active#projetos .projeto-botoes img {
   width: 36px;
   height: 36px;
@@ -98,8 +112,10 @@ body {
   opacity: 0.85;
 }
 
+/* ===============================
+   FUNDO DE ESTRELAS
+================================ */
 
-/* container das estrelas */
 .dot-background {
   position: fixed;
   top: 0;
@@ -110,7 +126,6 @@ body {
   overflow: hidden;
 }
 
-/* cada estrela individual */
 .dot {
   position: absolute;
   background: white;
@@ -122,24 +137,39 @@ body {
   animation: twinkle linear infinite;
 }
 
-/* animação de cintilação */
 @keyframes twinkle {
-  0% { opacity: 0.2; transform: scale(0.5);}
-  50% { opacity: 1; transform: scale(1.2);}
-  100% { opacity: 0.2; transform: scale(0.7);}
+  0%   { opacity: 0.2; transform: scale(0.5); }
+  50%  { opacity: 1;   transform: scale(1.2); }
+  100% { opacity: 0.2; transform: scale(0.7); }
 }
 
+/* ===============================
+   SIDEBAR (DESKTOP)
+================================ */
 
 .sidebar {
   width: 450px;
-  background-color: #00000063;
+  background: rgba(0, 0, 0, 0.493);
+  border-right: 1px solid rgba(255, 255, 255, 0.308);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 40px 20px;
   text-align: center;
-  z-index: 2;
+  z-index: 10;
   position: relative;
+  background-size: 200% 200%;
+  animation: sidebarGradient 12s ease infinite;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+}
+
+@keyframes sidebarGradient {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .sidebar-menu {
@@ -163,12 +193,8 @@ body {
   font-weight: bold;
   padding: 10px;
   border: 3px solid transparent;
-  transition: 0.3s;
-}
-
-.sidebar a {
-  border: 3px solid transparent;
   transition: border 0.2s;
+  display: inline-block;
 }
 
 .sidebar a:hover {
@@ -179,85 +205,15 @@ body {
   border: 3px solid white;
 }
 
-
 .sidebar-footer {
   padding-top: 40px;
   font-size: 1.2rem;
   opacity: 0.7;
 }
 
-.content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
-  position: relative;
-  padding: 40px;
-}
-
-.bolinhas-topo {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 15px;
-  padding: 15px;
-  animation: slideDown 0.6s ease-out forwards;
-  opacity: 0; 
-}
-
-.bolinhas-topo img {
-  width: 45px;
-  height: 45px;
-  object-fit: contain;
-  filter: drop-shadow(0 0 2px rgba(0,0,0,0.4));
-  transition: transform 0.3s ease;
-}
-
-.bolinhas-topo img:hover {
-  transform: scale(1.2);
-}
-
-
-@keyframes slideDown {
-  0% {
-    transform: translate(-50%, -30px);
-    opacity: 0;
-  }
-  100% {
-    transform: translateX(-50%);
-    opacity: 1;
-  }
-}
-
-.bolinhas-topo span {
-  width: 45px;
-  height: 45px;
-  background-color: rgb(250, 60, 60);
-  border-radius: 50%;
-}
-
-.perfil {
-  text-align: center;
-  position: relative;
-}
-
-.perfil #profile{
-  width: 325px;
-  height: auto;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 15px solid #cfcfcf07;
-  margin-bottom: 20px;
-}
-
-#br-flag {
-  width: 32px;
-  height: auto;
-}
+/* ===============================
+   LINGUA
+================================ */
 
 .sidebar-lang {
   display: flex;
@@ -272,9 +228,8 @@ body {
   align-items: center;
   gap: 8px;
   background: none;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
   padding: 6px 10px;
-  border-width: 2px;
   cursor: pointer;
   transition: border 0.2s, transform 0.2s;
 }
@@ -307,6 +262,90 @@ body {
   font-weight: 600;
 }
 
+/* ===============================
+   CONTEUDO PRINCIPAL
+================================ */
+
+/* content nao faz scroll — cada tab cuida do proprio scroll */
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  z-index: 1;
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+}
+
+/* tab-container ocupa tudo */
+.tab-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* ===============================
+   BOLINHAS DE TOPO
+================================ */
+
+.bolinhas-topo {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 15px;
+  padding: 15px;
+  animation: slideDown 0.6s ease-out forwards;
+  opacity: 0;
+  z-index: 2;
+  white-space: nowrap;
+}
+
+.bolinhas-topo img {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 2px rgba(0,0,0,0.4));
+  transition: transform 0.3s ease;
+}
+
+.bolinhas-topo img:hover {
+  transform: scale(1.2);
+}
+
+@keyframes slideDown {
+  0%   { transform: translate(-50%, -30px); opacity: 0; }
+  100% { transform: translateX(-50%);       opacity: 1; }
+}
+
+/* ===============================
+   PERFIL
+================================ */
+
+.perfil {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.perfil #profile {
+  width: 325px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 15px solid #cfcfcf07;
+  margin-bottom: 20px;
+}
+
+#br-flag {
+  width: 32px;
+  height: auto;
+}
+
 .perfil h2 {
   font-size: 1.8rem;
   font-weight: bold;
@@ -318,6 +357,10 @@ body {
   margin-top: 10px;
 }
 
+/* ===============================
+   CURSOR / TYPING
+================================ */
+
 .cursor {
   display: inline-block;
   animation: blink 1s steps(1) infinite;
@@ -325,10 +368,28 @@ body {
 }
 
 @keyframes blink {
-  50% {
-    opacity: 0;
-  }
+  50% { opacity: 0; }
 }
+
+.rainbow-text {
+  background: linear-gradient(90deg, #444444, #939393, #d2d2d2);
+  background-size: 400%;
+  background-clip: text;
+  color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rainbowAnimation 6s linear infinite;
+}
+
+@keyframes rainbowAnimation {
+  0%   { background-position: 0%   50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0%   50%; }
+}
+
+/* ===============================
+   CONTACTS (DESKTOP: lateral direita)
+================================ */
 
 .contacts {
   position: absolute;
@@ -339,6 +400,7 @@ body {
   flex-direction: column;
   gap: 10px;
   padding: 10px;
+  z-index: 2;
 }
 
 .contacts img {
@@ -351,44 +413,322 @@ body {
   transform: scale(1.2);
 }
 
-.rainbow-text {
-  background: linear-gradient(90deg, #444444, #939393, #d2d2d2);
-  background-size: 400%;
+/* ===============================
+   HAMBURGUER (escondido no desktop)
+================================ */
 
-  /* fallback */
-  background-clip: text;
-  color: transparent;
-
-  /* webkit */
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-
-  animation: rainbowAnimation 6s linear infinite;
+.hamburger {
+  display: none;
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 200;
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid rgba(255,255,255,0.25);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 8px;
+  width: 44px;
+  height: 44px;
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  padding: 8px;
+  transition: border-color 0.2s;
 }
 
-@keyframes rainbowAnimation {
-  0% {
-    background-position: 0% 50%;
+.hamburger:hover {
+  border-color: rgba(255,255,255,0.6);
+}
+
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: white;
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform-origin: center;
+}
+
+.hamburger.open span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.hamburger.open span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* ===============================
+   OVERLAY (mobile)
+================================ */
+
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 9;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.sidebar-overlay.visible {
+  opacity: 1;
+}
+
+/* ===============================
+   MOBILE <= 768px
+================================ */
+
+@media (max-width: 768px) {
+
+  body {
+    overflow: hidden;
   }
-  50% {
-    background-position: 100% 50%;
+
+  .hamburger {
+    display: flex;
   }
-  100% {
-    background-position: 0% 50%;
+
+  .sidebar-overlay {
+    display: block;
+  }
+
+  /* sidebar vira drawer */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 280px;
+    z-index: 100;
+    transform: translateX(-100%);
+    padding: 40px 20px 30px;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  /* content e tab-container ocupam tela toda */
+  .content {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .tab-container {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  /* cada tab ativa: tem seu proprio scroll vertical */
+  .tab.active {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 70px 16px 24px; /* espaco pro hamburguer no topo */
+    align-items: center;
+    justify-content: flex-start;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* inicio: position relative para os filhos absolutos */
+  .tab.active#inicio {
+    position: relative;
+    justify-content: flex-start;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  /* bolinhas: sai do absolute, quebra em linhas */
+  .bolinhas-topo {
+    position: relative;
+    top: unset;
+    left: unset;
+    transform: none;
+    animation: none;
+    opacity: 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    white-space: normal;
+    gap: 12px;
+    padding: 0 0 12px;
+    width: 100%;
+    margin-bottom: 4px;
+  }
+
+  .bolinhas-topo img {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+  }
+
+  /* tab-content centraliza o perfil */
+  .tab-content {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .perfil #profile {
+    width: 160px;
+    border-width: 8px;
+  }
+
+  .perfil h2 {
+    font-size: 1.15rem;
+  }
+
+  .perfil h3 {
+    font-size: 1.05rem;
+  }
+
+  /* contacts: horizontal abaixo do perfil */
+  .contacts {
+    position: relative;
+    right: unset;
+    top: unset;
+    transform: none;
+    flex-direction: row;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 20px;
+    padding: 0 0 16px;
+  }
+
+  .contacts img {
+    width: 42px;
+    height: 42px;
+  }
+
+  /* projetos: coluna unica, scroll da propria tab */
+  .tab.active#projetos {
+    overflow-y: auto;
+    align-items: stretch;
+  }
+
+  .tab.active#projetos .projetos-container {
+    grid-template-columns: 1fr;
+    overflow-y: visible;
+    max-width: 100%;
+    padding: 0 4px 20px;
+    flex: unset;
+  }
+
+  /* sidebar */
+  .sidebar a {
+    font-size: 1.15rem;
+  }
+
+  .sidebar-menu ul {
+    gap: 22px;
+  }
+
+  .sidebar-footer {
+    font-size: 0.9rem;
   }
 }
 
-.sidebar {
-  background: rgba(0, 0, 0, 0.493);
-  border-right: 1px solid rgba(255, 255, 255, 0.308);
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
-  background-size: 200% 200%;
-  animation: sidebarGradient 12s ease infinite;
+/* ===============================
+   TABLET  769px - 1024px
+================================ */
+
+@media (min-width: 769px) and (max-width: 1024px) {
+
+  .sidebar {
+    width: 300px;
+  }
+
+  .sidebar a {
+    font-size: 1.15rem;
+  }
+
+  .sidebar-menu ul {
+    gap: 22px;
+  }
+
+  .perfil #profile {
+    width: 240px;
+  }
+
+  .perfil h2 { font-size: 1.4rem; }
+  .perfil h3 { font-size: 1.3rem; }
+
+  .bolinhas-topo img {
+    width: 38px;
+    height: 38px;
+  }
+
+  .contacts img {
+    width: 44px;
+    height: 44px;
+  }
+
+  .tab.active#projetos .projetos-container {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 100%;
+  }
 }
 
-@keyframes sidebarGradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+/* ===============================
+   TELA GRANDE >= 1440px
+================================ */
+
+@media (min-width: 1440px) {
+
+  .sidebar {
+    width: 480px;
+  }
+
+  .sidebar a { font-size: 1.55rem; }
+
+  .perfil #profile { width: 370px; }
+  .perfil h2 { font-size: 2rem; }
+  .perfil h3 { font-size: 1.9rem; }
+
+  .bolinhas-topo img {
+    width: 52px;
+    height: 52px;
+  }
+
+  .contacts img {
+    width: 58px;
+    height: 58px;
+  }
+
+  .tab.active#projetos .projetos-container {
+    max-width: 1200px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
+/* ===============================
+   TELA MUITO GRANDE >= 1920px
+================================ */
+
+@media (min-width: 1920px) {
+
+  .sidebar { width: 520px; }
+  .sidebar a { font-size: 1.7rem; }
+
+  .perfil #profile { width: 420px; }
+  .perfil h2 { font-size: 2.2rem; }
+  .perfil h3 { font-size: 2rem; }
+
+  .bolinhas-topo img {
+    width: 58px;
+    height: 58px;
+  }
+
+  .tab.active#projetos .projetos-container {
+    max-width: 1500px;
+  }
 }

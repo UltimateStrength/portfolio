@@ -14,7 +14,7 @@ window.translations = {
     projeto_1_desc:
       "Realizei um trabalho como tradutor em PVZ: Its Still Versus Time trazendo o jogo para o português brasileiro.",
 
-    em_producao_1: "TO FAZENDO AINDA 1",
+    em_producao_1: "Entre em contato por aqui:",
     em_producao_2: "TO FAZENDO AINDA 2",
 
     typed: [
@@ -40,7 +40,7 @@ window.translations = {
     projeto_1_desc:
       "I worked as a translator on PVZ: It's Still Versus Time, bringing the game to Brazilian Portuguese.",
 
-    em_producao_1: "WORK IN PROGRESS 1",
+    em_producao_1: "Contact me here:",
     em_producao_2: "WORK IN PROGRESS 2",
 
     typed: [
