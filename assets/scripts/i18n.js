@@ -14,8 +14,17 @@ window.translations = {
     projeto_1_desc:
       "Realizei um trabalho como tradutor em PVZ: Its Still Versus Time trazendo o jogo para o português brasileiro.",
 
-    em_producao_1: "Entre em contato por aqui:",
-    em_producao_2: "TO FAZENDO AINDA 2",
+    contatos_titulo: "Entre em contato por aqui:",
+    contatos_email_btn: "Copiar e-mail",
+    contatos_email_subject: "Contato via Portfolio",
+
+    feedback_titulo: "O que você achou? Dê sua opinião",
+    feedback_nome: "Seu nome",
+    feedback_contato: "E-mail ou rede social (opcional)",
+    feedback_titulo_campo: "Assunto",
+    feedback_mensagem: "Sua mensagem...",
+    feedback_avaliacao: "Avaliação:",
+    feedback_enviar: "Enviar",
 
     typed: [
       "Entusiasta de Software",
@@ -23,6 +32,7 @@ window.translations = {
       "Desenvolvedor de Jogos",
       "Entusiasta de Hardware",
     ]
+    
   },
 
   en: {
@@ -40,8 +50,17 @@ window.translations = {
     projeto_1_desc:
       "I worked as a translator on PVZ: It's Still Versus Time, bringing the game to Brazilian Portuguese.",
 
-    em_producao_1: "Contact me here:",
-    em_producao_2: "WORK IN PROGRESS 2",
+    contatos_titulo: "Contact me here:",
+    contatos_email_btn: "Send e-mail to clipboard",
+    contatos_email_subject: "Contact via Portfolio",
+
+    feedback_titulo: "What do you think? Share your opinion.",
+    feedback_nome: "Your name",
+    feedback_contato: "E-mail or social media (optional)",
+    feedback_titulo_campo: "Subject",
+    feedback_mensagem: "Your message...",
+    feedback_avaliacao: "Rating:",
+    feedback_enviar: "Submit",
 
     typed: [
       "Software Enthusiast",
@@ -55,13 +74,21 @@ window.translations = {
 window.currentLang = Storage.get("language", "pt");
 
 function applyLanguage(lang) {
-window.currentLang = lang;
-Storage.set("language", lang);
+  window.currentLang = lang;
+  Storage.set("language", lang);
 
   document.querySelectorAll("[data-i18n]").forEach(el => {
     const key = el.getAttribute("data-i18n");
     if (translations[lang][key]) {
       el.textContent = translations[lang][key];
+    }
+  });
+
+  // handler que faltava — atualiza placeholders dos inputs/textareas
+  document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+    const key = el.getAttribute("data-i18n-placeholder");
+    if (translations[lang][key]) {
+      el.setAttribute("placeholder", translations[lang][key]);
     }
   });
 
@@ -91,4 +118,3 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
-

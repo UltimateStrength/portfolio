@@ -414,6 +414,193 @@ body {
 }
 
 /* ===============================
+   CONTATOS
+================================ */
+
+.contatos-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 48px 40px;
+  max-width: 480px;
+  width: 90%;
+  text-align: center;
+  backdrop-filter: blur(6px);
+}
+
+.contatos-card h2 {
+  font-size: 1.6rem;
+}
+
+.contatos-card p {
+  font-size: 0.95rem;
+  color: #aaa;
+  line-height: 1.6;
+}
+
+.mailto-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  border: 2px solid white;
+  color: white;
+  text-decoration: none;
+  font-family: "Ribeye Marrow", serif;
+  font-size: 1.2rem;
+  background: transparent;
+  transition: 0.2s;
+  margin-top: 10px;
+}
+
+.mailto-btn:hover {
+  background: white;
+  color: black;
+}
+
+/* ===============================
+   FEEDBACK
+================================ */
+
+.feedback-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 90%;
+  max-width: 480px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 40px;
+  backdrop-filter: blur(6px);
+}
+
+.tab.active#feedback h2 {
+  margin-bottom: 4px;
+  font-size: 1.6rem;
+}
+
+.tab.active#feedback > p {
+  color: #aaa;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.feedback-form input,
+.feedback-form textarea {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: white;
+  font-family: "Ribeye Marrow", serif;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s;
+  resize: vertical;
+}
+
+.feedback-form input:focus,
+.feedback-form textarea:focus {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.feedback-form input::placeholder,
+.feedback-form textarea::placeholder {
+  color: #666;
+}
+
+.fb-estrelas {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.fb-estrelas > span:first-child {
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+.estrelas {
+  display: flex;
+  gap: 4px;
+}
+
+.estrelas span {
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #444;
+  transition: color 0.15s, transform 0.1s;
+  line-height: 1;
+}
+
+.estrelas span:hover {
+  transform: scale(1.15);
+}
+
+.estrelas span.ativa {
+  color: #f5a623;
+}
+
+#fb-estrelas-label {
+  font-size: 0.85rem;
+  color: #aaa;
+}
+
+#fb-enviar {
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+  font-family: "Ribeye Marrow", serif;
+  font-size: 1rem;
+  padding: 10px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+  align-self: flex-start;
+  margin-top: 4px;
+}
+
+#fb-enviar:hover:not(:disabled) {
+  background: white;
+  color: #0e0e0e;
+  transform: scale(1.04);
+}
+
+#fb-enviar:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.fb-status {
+  font-size: 0.88rem;
+  margin-top: 2px;
+}
+
+.fb-status.sucesso { color: #4caf50; }
+.fb-status.erro    { color: #e74c3c; }
+
+/* ===============================
+   FEEDBACK + CONTATOS — mobile
+================================ */
+
+@media (max-width: 768px) {
+  .contatos-card,
+  .feedback-form {
+    padding: 28px 20px;
+  }
+
+  .tab.active#feedback,
+  .tab.active#contatos {
+    justify-content: flex-start;
+    padding-top: 80px;
+  }
+}
+
+/* ===============================
    HAMBURGUER (escondido no desktop)
 ================================ */
 
